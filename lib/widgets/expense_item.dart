@@ -20,13 +20,13 @@ class ExpenseItem extends StatelessWidget {
               children: [
                 Text('\$ ${expense.amount.toStringAsFixed(2)}'),
                 // displays 2 decimal points
-                Spacer(),
+                const Spacer(),
                 // spacer will take all of remaining space between widgets that isnt needed
                 Row(
                   children: [
-                    Icon(Icons.add_call),
+                    Icon(categoryIcons[expense.category]),
                     const SizedBox(width: 8),
-                    Text(expense.date.toString())
+                    Text(expense.formattedDate)
                   ],
                 )
               ],
