@@ -1,4 +1,5 @@
 import 'package:expense_tracker/models/expense.dart';
+import 'package:expense_tracker/widgets/expense_item.dart';
 
 import 'package:flutter/material.dart';
 
@@ -12,10 +13,11 @@ class ExpensesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // will create a scrollable list and create items when items are visible or are about to be
+     
     return ListView.builder(
       itemCount: expenses.length,
-      itemBuilder: (ctx, i) => Text(expenses[i].title),
+      itemBuilder: (ctx, i) => ExpenseItem(expenses[i]),
+      // will create a scrollable list and create items as items are visible or are about to be 
     );
   }
 }

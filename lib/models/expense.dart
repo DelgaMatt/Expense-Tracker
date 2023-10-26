@@ -4,9 +4,9 @@ import 'package:uuid/uuid.dart';
 const uuid = Uuid();
 
 enum Category { food, travel, leisure, work }
-
 // allows us to create a custom Type that is of predefined values
 // These aren't stored necessarily as string values but as a blanket value
+
 class Expense {
   Expense({
     required this.title,
