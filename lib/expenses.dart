@@ -38,10 +38,15 @@ class _ExpensesState extends State<Expenses> {
 
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
-        context: context,
-        builder: ((context) => const NewExpense()));
+        context: context, builder: ((context) => NewExpense(onAddExpense: _addExpense)));
   }
   // doesnt return anything so return type is void
+
+  void _addExpense(Expense expense) {
+    setState(() {
+       _registeredExpenses.add(expense);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +55,7 @@ class _ExpensesState extends State<Expenses> {
         title: const Text("Flutter Expense Tracker"),
         actions: [
           IconButton(
-            onPressed: _openAddExpenseOverlay, 
-            icon: const Icon(Icons.add)
-          )
+              onPressed: _openAddExpenseOverlay, icon: const Icon(Icons.add))
         ],
       ),
       body: Column(

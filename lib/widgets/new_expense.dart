@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:expense_tracker/models/expense.dart';
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({super.key});
+  const NewExpense({super.key, required this.onAddExpense});
+  final void Function(Expense expense) onAddExpense;
 
   @override
   State<NewExpense> createState() {
@@ -37,6 +38,43 @@ class _NewExpensesState extends State<NewExpense> {
     setState(() {
       _selectedDate = pickedDate;
     });
+  }
+
+  // validation
+  void _submitExpenseData() {
+    final enteredAmount = double.tryParse(_amountController.text);
+    // double: This is a data type that represents floating-point numbers, which include decimal fractions.
+    // This is a method available on the double class. It attempts to convert a string into a double.
+    // If the string can be successfully converted to a double, the method returns the parsed double value. If it can't be converted, it returns null.
+
+    final invalidAmount = enteredAmount == null || enteredAmount <= 0;
+
+    if (_titleController.text.trim().isEmpty ||
+        invalidAmount ||
+        _selectedDate == null) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Invalid Input'),
+          content: const Text(
+              'Please make sure a valid title, amount, date and category was entered.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const Text('Okay'),
+            )
+          ],
+        ),
+      );
+      return;
+    }
+    widget.onAddExpense(Expense(
+        title: _titleController.text,
+        amount: enteredAmount,
+        date: _selectedDate!, //! to tell dart were sure it wont be null
+        category: _selectedCategory));
   }
 
   @override
@@ -76,11 +114,13 @@ class _NewExpensesState extends State<NewExpense> {
               )
             ],
           ),
-          const SizedBox(height: 16,),
+          const SizedBox(
+            height: 16,
+          ),
           Row(
             children: [
               DropdownButton(
-                value: _selectedCategory,
+                  value: _selectedCategory,
                   items: Category.values
                       .map(
                         (category) => DropdownMenuItem(
@@ -108,8 +148,8 @@ class _NewExpensesState extends State<NewExpense> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  print(_titleController.text);
-                  print(_amountController.text);
+                  _submitExpenseData();
+                  Navigator.pop(context);
                 },
                 child: const Text('Save Expense'),
               )
