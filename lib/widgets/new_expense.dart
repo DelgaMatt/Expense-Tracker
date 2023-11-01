@@ -46,7 +46,6 @@ class _NewExpensesState extends State<NewExpense> {
     // double: This is a data type that represents floating-point numbers, which include decimal fractions.
     // This is a method available on the double class. It attempts to convert a string into a double.
     // If the string can be successfully converted to a double, the method returns the parsed double value. If it can't be converted, it returns null.
-
     final invalidAmount = enteredAmount == null || enteredAmount <= 0;
 
     if (_titleController.text.trim().isEmpty ||
@@ -74,13 +73,15 @@ class _NewExpensesState extends State<NewExpense> {
         title: _titleController.text,
         amount: enteredAmount,
         date: _selectedDate!, //! to tell dart were sure it wont be null
-        category: _selectedCategory));
+        category: _selectedCategory),
+        );
+    Navigator.pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.fromLTRB(16, 50, 16, 16),
       child: Column(
         children: [
           TextField(
@@ -149,7 +150,6 @@ class _NewExpensesState extends State<NewExpense> {
               ElevatedButton(
                 onPressed: () {
                   _submitExpenseData();
-                  Navigator.pop(context);
                 },
                 child: const Text('Save Expense'),
               )
