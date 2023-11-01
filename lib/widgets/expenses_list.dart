@@ -18,6 +18,11 @@ class ExpensesList extends StatelessWidget {
           // Dismissible is helping us delete an expense by swiping right to left
           key: ValueKey(expenses[i]),
           // creates a key value that can be set for this key parameter
+          background: Container(
+            color: Theme.of(context).colorScheme.error.withOpacity(0.75),
+            margin: EdgeInsets.symmetric(
+              horizontal: Theme.of(context).cardTheme.margin!.horizontal),
+            ),
           onDismissed: (direction) {
             onRemoveExpense(expenses[i]);
           },
