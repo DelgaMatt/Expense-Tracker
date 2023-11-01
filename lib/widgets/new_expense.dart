@@ -147,6 +147,7 @@ class _NewExpensesState extends State<NewExpense> {
                 },
                 child: const Text('Cancel'),
               ),
+              const SizedBox(width: 6),
               ElevatedButton(
                 onPressed: () {
                   _submitExpenseData();
