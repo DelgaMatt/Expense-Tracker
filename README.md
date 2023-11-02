@@ -5,7 +5,7 @@
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
   ## Description
-  A Front End mobile application that tracks and graphs user inputted expenses. The user has the ability to add, remove and view relative expense costs.
+  A fully responsive Front End mobile application that tracks and graphs user inputted expenses. The user has the ability to add, remove and view relative expense costs.
   ## Table of Contents
   - [Usage](#usage)
   - [Contribute](#contributing)
