@@ -2,7 +2,7 @@ import 'package:expense_tracker/expenses.dart';
 import 'package:flutter/material.dart';
 
 var kColorScheme =
-    ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 116, 82, 197));
+    ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 116, 82, 197));
 // global variables set up with 'k' prefix
 
 var kDarkColorScheme =
