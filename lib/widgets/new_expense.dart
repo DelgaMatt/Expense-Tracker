@@ -17,15 +17,16 @@ class _NewExpensesState extends State<NewExpense> {
   DateTime? _selectedDate;
   Category _selectedCategory = Category.leisure;
   // flutter doing the heavy lifting with storing values
-  // you also have to tell flutter to delete the controller when the widget is no longer needed (the modal overlay)
-  // it will cause memory issues and may cause the app to crash
-  // so we use dispose
+
   @override
   void dispose() {
     _titleController.dispose();
     _amountController.dispose();
     super.dispose();
   }
+  // you also have to tell flutter to delete the controller when the widget is no longer needed (the modal overlay)
+  // it will cause memory issues and may cause the app to crash
+  // so we use dispose
 
   void _presentDatePicker() async {
     final now = DateTime.now();

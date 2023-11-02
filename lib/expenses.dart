@@ -2,6 +2,8 @@ import 'package:expense_tracker/widgets/chart/chart.dart';
 import 'package:expense_tracker/widgets/expenses_list.dart';
 import 'package:expense_tracker/models/expense.dart';
 import 'package:expense_tracker/widgets/new_expense.dart';
+
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 class Expenses extends StatefulWidget {
@@ -74,6 +76,8 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width ;
+
     Widget mainContent = const Center(
       child: Text('No Expenses Found'),
     );
@@ -93,14 +97,25 @@ class _ExpensesState extends State<Expenses> {
               onPressed: _openAddExpenseOverlay, icon: const Icon(Icons.add))
         ],
       ),
-      body: Column(
+      body: width < 600 
+      ? Column(
         children: [
           Chart(expenses: _registeredExpenses),
           Expanded(
             child: mainContent,
           )
         ],
-      ),
+        )
+      : Row(children: [
+          Expanded(
+            child: Chart(expenses: _registeredExpenses),
+          ),
+          // Expanded constraints the child (Chart) to only take as much width as available in the Row after sizing the other children of the Row
+          Expanded(
+            child: mainContent,
+          )
+        ],
+        )
     );
   }
 }
