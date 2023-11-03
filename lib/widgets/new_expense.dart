@@ -97,6 +97,44 @@ class _NewExpensesState extends State<NewExpense> {
           const InputDecoration(prefixText: '\$ ', label: Text('Amount')),
     );
   }
+
+  Widget _datePickerWidget() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(_selectedDate == null
+            ? 'No Date Selected'
+            : formatter.format(_selectedDate!)),
+        IconButton(
+            onPressed: _presentDatePicker,
+            icon: const Icon(Icons.calendar_month))
+      ],
+    );
+  }
+
+  Widget _categoryPickerWidget() {
+    return DropdownButton(
+        value: _selectedCategory,
+        items: Category.values
+            .map(
+              (category) => DropdownMenuItem(
+                value: category,
+                child: Text(
+                  category.name.toUpperCase(),
+                ),
+              ),
+            )
+            .toList(),
+        onChanged: (value) {
+          if (value == null) {
+            return;
+          }
+          setState(() {
+            _selectedCategory = value;
+          });
+        });
+  }
   // ---------------------------------------------------------------------------->
 
   @override
@@ -115,90 +153,33 @@ class _NewExpensesState extends State<NewExpense> {
             padding: EdgeInsets.fromLTRB(16, 16, 16, keyboardSpace + 16),
             child: Column(
               children: [
-
                 if (width >= 600)
                   Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
                     Expanded(child: _expenseTitleWidget()),
                     const SizedBox(width: 16),
-                    Expanded(
-                      child: _expenseAmountWidget()
-                    ),
+                    Expanded(child: _expenseAmountWidget()),
                   ])
                 else
                   _expenseTitleWidget(),
-
-
                 if (width >= 600)
                   Row(
                     children: [
-                      DropdownButton(
-                          value: _selectedCategory,
-                          items: Category.values
-                              .map(
-                                (category) => DropdownMenuItem(
-                                  value: category,
-                                  child: Text(
-                                    category.name.toUpperCase(),
-                                  ),
-                                ),
-                              )
-                              .toList(),
-                          onChanged: (value) {
-                            if (value == null) {
-                              return;
-                            }
-                            setState(() {
-                              _selectedCategory = value;
-                            });
-                          }),
+                      _categoryPickerWidget(),
                       const SizedBox(width: 24),
-                      Expanded(
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(_selectedDate == null
-                                  ? 'No Date Selected'
-                                  : formatter.format(_selectedDate!)),
-                              IconButton(
-                                  onPressed: _presentDatePicker,
-                                  icon: const Icon(Icons.calendar_month))
-                            ]),
-                      )
+                      Expanded(child: _datePickerWidget())
                     ],
                   )
                 else
                   Row(
                     children: [
-                      Expanded(
-                        child: TextField(
-                          controller: _amountController,
-                          keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                              prefixText: '\$ ', label: Text('Amount')),
-                        ),
-                      ),
+                      Expanded(child: _expenseAmountWidget()),
                       const SizedBox(width: 16),
-                      Expanded(
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(_selectedDate == null
-                                  ? 'No Date Selected'
-                                  : formatter.format(_selectedDate!)),
-                              IconButton(
-                                  onPressed: _presentDatePicker,
-                                  icon: const Icon(Icons.calendar_month))
-                            ]),
-                      )
+                      Expanded(child: _datePickerWidget())
                     ],
                   ),
                 const SizedBox(
                   height: 16,
                 ),
-
-
                 if (width >= 600)
                   Row(
                     children: [
@@ -221,26 +202,7 @@ class _NewExpensesState extends State<NewExpense> {
                 else
                   Row(
                     children: [
-                      DropdownButton(
-                          value: _selectedCategory,
-                          items: Category.values
-                              .map(
-                                (category) => DropdownMenuItem(
-                                  value: category,
-                                  child: Text(
-                                    category.name.toUpperCase(),
-                                  ),
-                                ),
-                              )
-                              .toList(),
-                          onChanged: (value) {
-                            if (value == null) {
-                              return;
-                            }
-                            setState(() {
-                              _selectedCategory = value;
-                            });
-                          }),
+                      _categoryPickerWidget(),
                       const Spacer(),
                       ElevatedButton(
                         onPressed: () {
