@@ -80,6 +80,25 @@ class _NewExpensesState extends State<NewExpense> {
     Navigator.pop(context);
   }
 
+  // ------------------------------- Widgets for DRY Code ----------------------->
+  Widget _expenseTitleWidget() {
+    return TextField(
+      controller: _titleController,
+      maxLength: 50,
+      decoration: const InputDecoration(label: Text('Expense Title')),
+    );
+  }
+
+  Widget _expenseAmountWidget() {
+    return TextField(
+      controller: _amountController,
+      keyboardType: TextInputType.number,
+      decoration:
+          const InputDecoration(prefixText: '\$ ', label: Text('Amount')),
+    );
+  }
+  // ---------------------------------------------------------------------------->
+
   @override
   Widget build(BuildContext context) {
     final keyboardSpace = MediaQuery.of(context).viewInsets.bottom;
@@ -99,31 +118,15 @@ class _NewExpensesState extends State<NewExpense> {
 
                 if (width >= 600)
                   Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Expanded(
-                      child: TextField(
-                        controller: _titleController,
-                        maxLength: 50,
-                        decoration:
-                            const InputDecoration(label: Text('Expense Title')),
-                      ),
-                    ),
+                    Expanded(child: _expenseTitleWidget()),
                     const SizedBox(width: 16),
                     Expanded(
-                      child: TextField(
-                        controller: _amountController,
-                        keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
-                            prefixText: '\$ ', label: Text('Amount')),
-                      ),
+                      child: _expenseAmountWidget()
                     ),
                   ])
                 else
-                  TextField(
-                    controller: _titleController,
-                    maxLength: 50,
-                    decoration:
-                        const InputDecoration(label: Text('Expense Title')),
-                  ),
+                  _expenseTitleWidget(),
+
 
                 if (width >= 600)
                   Row(
@@ -191,12 +194,14 @@ class _NewExpensesState extends State<NewExpense> {
                       )
                     ],
                   ),
-                  const SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
 
+
                 if (width >= 600)
-                  Row(children: [
+                  Row(
+                    children: [
                       const Spacer(),
                       ElevatedButton(
                         onPressed: () {
